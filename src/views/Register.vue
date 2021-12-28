@@ -5,7 +5,7 @@ nu<template>
             <v-text-field v-model="email" :rules="emailRules" label="E-mail" required ></v-text-field>
             <v-row>
                 <v-col cols="2">
-                    <v-text-field label="CEP" @blur="getCEP" v-model="cep" ></v-text-field>
+                    <v-text-field label="CEP" @blur="getCEP" v-mask="'#####-###'" v-model="cep"></v-text-field>
                 </v-col>
                 <v-col cols="5">
                     <v-text-field label="Cidade" v-model="cidade"></v-text-field>
@@ -62,7 +62,7 @@ nu<template>
         this.$refs.form.resetValidation()
       },
       async getCEP(){
-        if (this.cep.length == 8){
+        if (this.cep.replace("-","").length== 8){
             console.log(this.cep);
             try{
                 const responce = await fetch(`https://viacep.com.br/ws/${this.cep}/json`);
